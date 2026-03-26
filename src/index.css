@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #010a13; /* hextech-dark */
+    color: #cdbe91; /* hextech-gold */
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .btn-hextech {
+    @apply relative overflow-hidden bg-hextech-blue border-2 border-hextech-gold text-hextech-gold font-bold uppercase tracking-widest py-3 px-8 transition-all duration-300 hover:bg-opacity-80 hover:scale-105 hover:shadow-[0_0_15px_rgba(205,190,145,0.5)];
+  }
+}
+
+/* Custom scrollbar for an extra premium feel */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #010a13;
+}
+::-webkit-scrollbar-thumb {
+  background: #785a28;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #cdbe91;
+}
