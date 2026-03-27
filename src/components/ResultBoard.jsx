@@ -27,10 +27,10 @@ export default function ResultBoard({ loadout, onReset, language = 'cs_CZ' }) {
 
   return (
     <div className="w-full max-w-7xl mx-auto flex flex-col items-center animate-fadeIn">
-      <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-8 mb-6">
+    <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-8 mb-6">
         
-        {/* Left Column: Runes */}
-        <div className="border border-hextech-border p-4 lg:p-6 rounded-lg bg-hextech-dark/80 shadow-[0_4px_20px_rgba(0,0,0,0.5)] flex flex-col items-center">
+        {/* Left Column: Runes – mobile order 2, desktop order 1 */}
+        <div className="order-2 md:order-1 border border-hextech-border p-4 lg:p-6 rounded-lg bg-hextech-dark/80 shadow-[0_4px_20px_rgba(0,0,0,0.5)] flex flex-col items-center">
           <h2 className="text-xl lg:text-2xl font-bold mb-4 border-b border-hextech-border pb-2 w-full text-center text-white">{t.runes}</h2>
           
           <div className="flex w-full justify-around mb-4">
@@ -81,8 +81,8 @@ export default function ResultBoard({ loadout, onReset, language = 'cs_CZ' }) {
           </div>
         </div>
 
-        {/* Middle Column: Champion & Spells */}
-        <div className="border border-hextech-gold p-4 lg:p-6 rounded-lg bg-gradient-to-b from-hextech-blue/20 to-hextech-dark shadow-[0_0_30px_rgba(205,190,145,0.15)] relative overflow-hidden flex flex-col items-center">
+        {/* Middle Column: Champion & Spells – mobile order 1, desktop order 2 */}
+        <div className="order-1 md:order-2 border border-hextech-gold p-4 lg:p-6 rounded-lg bg-gradient-to-b from-hextech-blue/20 to-hextech-dark shadow-[0_0_30px_rgba(205,190,145,0.15)] relative overflow-hidden flex flex-col items-center">
           
           <h2 className="text-3xl lg:text-4xl font-black mb-3 mt-1 text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] text-center">
             {champion.name}
@@ -116,8 +116,8 @@ export default function ResultBoard({ loadout, onReset, language = 'cs_CZ' }) {
           </div>
         </div>
 
-        {/* Right Column: Build */}
-        <div className="border border-hextech-border p-3 lg:p-4 rounded-lg bg-hextech-dark/80 shadow-[0_4px_20px_rgba(0,0,0,0.5)] flex flex-col items-center">
+        {/* Right Column: Build – mobile order 3, desktop order 3 */}
+        <div className="order-3 border border-hextech-border p-3 lg:p-4 rounded-lg bg-hextech-dark/80 shadow-[0_4px_20px_rgba(0,0,0,0.5)] flex flex-col items-center">
           <h2 className="text-lg lg:text-xl font-bold mb-3 border-b border-hextech-border pb-2 text-center text-white w-full">{t.build}</h2>
           
           <div className="flex-1 w-full flex flex-col items-center">
