@@ -18,7 +18,7 @@ function getRandomItems(array, count, exclude = []) {
   return result;
 }
 
-export async function generateRandomLoadout(allowedRoles = [], lang = 'cs_CZ') {
+export async function generateRandomLoadout(allowedRoles = [], lang = 'cs_CZ', randomMode = false) {
   // 1. Fetch all data
   const [champions, allItems, runes, spells, version, posMap] = await Promise.all([
     getChampions(lang),
@@ -33,37 +33,37 @@ export async function generateRandomLoadout(allowedRoles = [], lang = 'cs_CZ') {
   const rolePool = allowedRoles.length > 0 ? allowedRoles : ROLES;
   const role = getRandomItem(rolePool);
 
-  // 3. Select Champion using Meraki Analytics official lane positions
-  // posMap: {englishName -> ["JUNGLE", "MIDDLE", ...]} (uppercase)
-  if (Object.keys(posMap).length === 0) {
-    throw new Error('Pozice šampionů se nepodařilo načíst. Zkuste to prosím znovu.');
+  // 3. Select Champion
+  let champion;
+  if (randomMode) {
+    // Random mode: any champion, regardless of their lane
+    champion = getRandomItem(champions);
+  } else {
+    // Normal mode: only champions that belong to the selected role
+    if (Object.keys(posMap).length === 0) {
+      throw new Error('Pozice šampionů se nepodařilo načíst. Zkuste to prosím znovu.');
+    }
+    const LANE_POSITION = {
+      'Top':     'TOP',
+      'Jungle':  'JUNGLE',
+      'Mid':     'MIDDLE',
+      'ADC':     'BOTTOM',
+      'Support': 'SUPPORT',
+    };
+    const getChampionsForRole = (champs, r) => {
+      const laneKey = LANE_POSITION[r];
+      return champs.filter(c => {
+        const positions = posMap[c.name] || [];
+        if (positions.length === 0) return false;
+        return positions.includes(laneKey);
+      });
+    };
+    const validChampions = getChampionsForRole(champions, role);
+    if (validChampions.length === 0) {
+      throw new Error(`Žádný šampion nebyl nalezen pro roli ${role}. Zkuste to znovu.`);
+    }
+    champion = getRandomItem(validChampions);
   }
-
-  const LANE_POSITION = {
-    'Top':     'TOP',
-    'Jungle':  'JUNGLE',
-    'Mid':     'MIDDLE',
-    'ADC':     'BOTTOM',
-    'Support': 'SUPPORT',
-  };
-
-  const getChampionsForRole = (champs, r) => {
-    const laneKey = LANE_POSITION[r];
-    const filtered = champs.filter(c => {
-      const positions = posMap[c.name] || [];
-      // If champion has no Meraki data, exclude them (no fallback)
-      if (positions.length === 0) return false;
-      return positions.includes(laneKey);
-    });
-    // If filter returns nothing, don't fall back – return empty so caller handles it
-    return filtered;
-  };
-
-  const validChampions = getChampionsForRole(champions, role);
-  if (validChampions.length === 0) {
-    throw new Error(`Žádný šampion nebyl nalezen pro roli ${role}. Zkuste to znovu.`);
-  }
-  const champion = getRandomItem(validChampions);
 
   // 4. Select Spells
   const validSpells = spells.filter(s => s.modes.includes('CLASSIC'));

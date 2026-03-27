@@ -11,7 +11,7 @@ const ROLE_ICONS = {
   'Support': "https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/svg/position-utility.svg"
 };
 
-export default function Wheel({ onSpinResult, language = 'cs_CZ', selectedRoles, setSelectedRoles }) {
+export default function Wheel({ onSpinResult, language = 'cs_CZ', selectedRoles, setSelectedRoles, randomMode, setRandomMode }) {
   const [spinning, setSpinning] = useState(false);
   const timeoutRef = useRef(null);
   
@@ -97,7 +97,21 @@ export default function Wheel({ onSpinResult, language = 'cs_CZ', selectedRoles,
           </button>
         ))}
       </div>
-      
+
+      {/* Random Mode toggle */}
+      <button
+        onClick={() => !spinning && setRandomMode(!randomMode)}
+        disabled={spinning}
+        className={`flex items-center gap-2 mb-4 px-4 py-2 rounded border-2 transition-all text-sm font-bold tracking-wide ${
+          randomMode
+            ? 'bg-hextech-gold text-hextech-dark border-hextech-gold shadow-[0_0_15px_rgba(205,190,145,0.5)]'
+            : 'bg-hextech-dark/80 text-hextech-gold border-hextech-border hover:border-hextech-gold'
+        }`}
+      >
+        <span>{randomMode ? '🎲' : '🎯'}</span>
+        <span>{language === 'cs_CZ' ? (randomMode ? 'Random mód: ZAP' : 'Random mód: VYP') : (randomMode ? 'Random mode: ON' : 'Random mode: OFF')}</span>
+      </button>
+
       <button 
         onClick={handleSpinOrSkip}
         className={`btn-hextech text-xl md:text-2xl w-64 md:w-72 py-3 md:py-4 ${spinning ? 'opacity-90' : ''}`}

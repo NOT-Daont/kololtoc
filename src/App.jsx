@@ -11,12 +11,13 @@ function App() {
   const [language, setLanguage] = useState('cs_CZ');
   const [selectedRoles, setSelectedRoles] = useState([]);
   const [bgVisible, setBgVisible] = useState(false);
+  const [randomMode, setRandomMode] = useState(false);
 
   const handleSpinResult = async (rolesFromWheel) => {
     setLoading(true);
     const rolesToUse = (rolesFromWheel && rolesFromWheel.length > 0) ? rolesFromWheel : selectedRoles;
     try {
-      const data = await generateRandomLoadout(rolesToUse, language);
+      const data = await generateRandomLoadout(rolesToUse, language, randomMode);
       setLoadout(data);
       setAppState(2);
       setBgVisible(false);
@@ -93,7 +94,9 @@ function App() {
               onSpinResult={handleSpinResult} 
               language={language} 
               selectedRoles={selectedRoles} 
-              setSelectedRoles={setSelectedRoles} 
+              setSelectedRoles={setSelectedRoles}
+              randomMode={randomMode}
+              setRandomMode={setRandomMode}
             />
           ) : (
             <ResultBoard loadout={loadout} onReset={handleReset} language={language} />

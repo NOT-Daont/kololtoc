@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-# kololtoc
-Website for generating random builds for League of Legends
-=======
 # 🎰 Kololtoč – League of Legends Loadout Generator
 
 Webová aplikace pro náhodné generování loadoutů (build, runy, summoner spelly) pro League of Legends. Postavena v **React + Vite + Tailwind CSS** s hextech-tématickým UI.
@@ -58,4 +54,3 @@ src/
 ---
 
 Made with ❤️ by **daont** | [Ko-fi](https://ko-fi.com/daont)
->>>>>>> 8cf9ef0 (Initial commit – Kololtoč LoL Generator)
