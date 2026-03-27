@@ -54,4 +54,3 @@ src/
 ---
 
 Made with ❤️ by **daont** | [Ko-fi](https://ko-fi.com/daont)
->>>>>>> 8cf9ef0 (Initial commit – Kololtoč LoL Generator)
