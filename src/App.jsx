@@ -11,7 +11,7 @@ function App() {
   const [language, setLanguage] = useState('cs_CZ');
   const [selectedRoles, setSelectedRoles] = useState([]);
   const [bgVisible, setBgVisible] = useState(false);
-  const [randomMode, setRandomMode] = useState(false);
+  const [randomMode, setRandomMode] = useState(true);
 
   const handleSpinResult = async (rolesFromWheel) => {
     setLoading(true);
